@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h3><a href='/main/logout'>Log Out</a></h3>
+    <h3>Hello, {{request.session.first_name}}!</h3>
+    <h5> Your Trip Schedules</h5>
+    <table border='thin'>
+        <thead>
+            <tr>
+                <th>Destination</th>
+                <th>Travel Start Date</th>
+                <th>Travel End Date</th>
+                <th>Plan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for trip in trips%}
+                {%if trip in cur_user.traveler.all%}
+                    <tr>
+                        <td><a href='/main/show/{{trip.id}}'>{{trip.destination}}</a></td>
+                        <td>{{trip.start_date}}</td>
+                        <td>{{trip.end_date}}</td>
+                        <td>{{trip.description}}</td>
+                    </tr>
+                {%endif%}
+            {%endfor%}
+        </tbody>    
+    </table>
+    <h5>Other User's Trip Schedules</h5>
+    <table border='thin'>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Destination</th>
+                <th>Travel Start Date</th>
+                <th>Travel End Date</th>
+                <th>Plan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for trip in trips%}
+                {%if trip not in cur_user.traveler.all%}
+                    <tr>
+                        <td>{{trip.trip_planner}}</td>
+                        <td><a href='/main/show/{{trip.id}}'>{{trip.destination}}</a></td>
+                        <td>{{trip.start_date}}</td>
+                        <td>{{trip.end_date}}</td>
+                        <td><a href='/main/joinTrip/{{trip.id}}'>Join This Trip</a></td>
+                    </tr>
+                {%endif%}
+            {%endfor%}
+        </tbody>    
+    </table>
+    <h5><a href='/main/addtrip'>Add Travel Plan</a></h5>
+
+    
+    
+    
+</body>
+</html>

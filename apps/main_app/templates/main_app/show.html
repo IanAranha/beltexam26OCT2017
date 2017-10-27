@@ -1,0 +1,13 @@
+{{destination}}
+<h4> <a href='/main/dashboard'>Home</a>   |   <a href='/main/logout'>Log Out</a></h4>
+<h4>{{destination.destination}}<h4>
+<p>Planned by: {{destination.trip_planner}}</p>
+<p>Description: {{destination.description}}</p>
+<p>Travel Date From: {{destination.start_date}}</p>
+<p>Travel Date To: {{destination.end_date}}</p>
+<br>
+<br>
+<h4>Other travelers on this trip</h4>
+{%for traveler in other_travelers%}
+    {{traveler.user_name}}
+{%endfor%}
